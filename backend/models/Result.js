@@ -26,12 +26,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       percentage: {
-        type: DataTypes.DECIMAL(5, 2),
+        type: DataTypes.VIRTUAL,
         allowNull: false,
+        get(){
+          return (this.score/100) * 100;
+        }
       },
       grade: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.VIRTUAL,
         allowNull: false,
+        get(){
+          const percentage = (this.score/100) * 100;
+          if(percentage >= 90) return 'A+';
+          if(percentage >= 80) return 'A';
+          if(percentage >= 70) return 'B';
+          if(percentage >= 60) return 'C';
+          return 'F';
+        }
       },
     });
   

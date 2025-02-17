@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.ENUM("Admin", "Student"),
       allowNull: false,
+      defaultValue: "Student",
     },
   });
 
@@ -31,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = (models) => {
-    User.hasMany(models.Result, { foreignKey: "user_id" });
+    User.hasMany(models.Result, { foreignKey: "user_id", onDelete: "CASCADE" });
   };
 
   return User;

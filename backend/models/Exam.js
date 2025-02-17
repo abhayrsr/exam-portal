@@ -6,11 +6,12 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       exam_name: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       course_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(100),
+        allowNull: false,
       },
       uploaded_by: {
         type: DataTypes.INTEGER,
@@ -27,11 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Exam.associate = (models) => {
-        Exam.hasMany(models.Question, { foreignKey: 'exam_id' });
+        Exam.hasMany(models.Question, { foreignKey: 'exam_id', onDelete: 'CASCADE' });
     };
 
     Exam.associate = (models) => {
-        Exam.hasMany(models.Result, { foreignKey: 'exam_id' });
+        Exam.hasMany(models.Result, { foreignKey: 'exam_id', onDelete: 'CASCADE' });
     };
   
     return Exam;
