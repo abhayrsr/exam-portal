@@ -1,164 +1,162 @@
-{
-    "questions": [
-      {
-        "question_id": 1,
-        "exam_id": 1,
-        "question_text": "What is the capital of France?",
-        "question_type": "MCQ",
-        "options": ["London", "Berlin", "Paris", "Madrid"],
-        "correct_answer": "Paris"
-      },
-      {
-        "question_id": 2,
-        "exam_id": 1,
-        "question_text": "The Earth revolves around the Sun.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "True"
-      },
-      {
-        "question_id": 3,
-        "exam_id": 1,
-        "question_text": "The largest planet in our solar system is _______.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "Jupiter"
-      },
-      {
-        "question_id": 4,
-        "exam_id": 2,
-        "question_text": "Which programming language is known for its use in web development?",
-        "question_type": "MCQ",
-        "options": ["JavaScript", "COBOL", "FORTRAN", "Assembly"],
-        "correct_answer": "JavaScript"
-      },
-      {
-        "question_id": 5,
-        "exam_id": 2,
-        "question_text": "HTML is a programming language.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "False"
-      },
-      {
-        "question_id": 6,
-        "exam_id": 2,
-        "question_text": "What is 2 + 2?",
-        "question_type": "MCQ",
-        "options": ["3", "4", "5", "6"],
-        "correct_answer": "4"
-      },
-      {
-        "question_id": 7,
-        "exam_id": 3,
-        "question_text": "The chemical symbol for Gold is _______.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "Au"
-      },
-      {
-        "question_id": 8,
-        "exam_id": 3,
-        "question_text": "Which of these is a primary color?",
-        "question_type": "MCQ",
-        "options": ["Green", "Orange", "Purple", "Blue"],
-        "correct_answer": "Blue"
-      },
-      {
-        "question_id": 9,
-        "exam_id": 3,
-        "question_text": "Water boils at 100 degrees Celsius at sea level.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "True"
-      },
-      {
-        "question_id": 10,
-        "exam_id": 4,
-        "question_text": "What is the square root of 64?",
-        "question_type": "MCQ",
-        "options": ["6", "7", "8", "9"],
-        "correct_answer": "8"
-      },
-      {
-        "question_id": 11,
-        "exam_id": 4,
-        "question_text": "The formula for water is _______.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "H2O"
-      },
-      {
-        "question_id": 12,
-        "exam_id": 4,
-        "question_text": "Python is a compiled language.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "False"
-      },
-      {
-        "question_id": 13,
-        "exam_id": 5,
-        "question_text": "Which planet is known as the Red Planet?",
-        "question_type": "MCQ",
-        "options": ["Venus", "Mars", "Jupiter", "Saturn"],
-        "correct_answer": "Mars"
-      },
-      {
-        "question_id": 14,
-        "exam_id": 5,
-        "question_text": "The speed of light is approximately _______ meters per second.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "300000000"
-      },
-      {
-        "question_id": 15,
-        "exam_id": 5,
-        "question_text": "Which of these is a mammal?",
-        "question_type": "MCQ",
-        "options": ["Snake", "Dolphin", "Lizard", "Salmon"],
-        "correct_answer": "Dolphin"
-      },
-      {
-        "question_id": 16,
-        "exam_id": 6,
-        "question_text": "Shakespeare wrote Romeo and Juliet.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "True"
-      },
-      {
-        "question_id": 17,
-        "exam_id": 6,
-        "question_text": "The capital of Japan is _______.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "Tokyo"
-      },
-      {
-        "question_id": 18,
-        "exam_id": 6,
-        "question_text": "Which of these is not a programming language?",
-        "question_type": "MCQ",
-        "options": ["Python", "Java", "Chrome", "Ruby"],
-        "correct_answer": "Chrome"
-      },
-      {
-        "question_id": 19,
-        "exam_id": 7,
-        "question_text": "All insects have six legs.",
-        "question_type": "True/False",
-        "options": null,
-        "correct_answer": "True"
-      },
-      {
-        "question_id": 20,
-        "exam_id": 7,
-        "question_text": "The largest organ in the human body is the _______.",
-        "question_type": "Fill in the Blank",
-        "options": null,
-        "correct_answer": "skin"
-      }
-    ]
-  }
+[
+    {
+      "question_id": 1,
+      "exam_id": 1,
+      "question_text": "What is the capital of France?",
+      "question_type": "MCQ",
+      "options": ["London", "Berlin", "Paris", "Madrid"],
+      "correct_answer": "Paris"
+    },
+    {
+      "question_id": 2,
+      "exam_id": 1,
+      "question_text": "The Earth revolves around the Sun.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "True"
+    },
+    {
+      "question_id": 3,
+      "exam_id": 1,
+      "question_text": "The largest planet in our solar system is _______.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "Jupiter"
+    },
+    {
+      "question_id": 4,
+      "exam_id": 2,
+      "question_text": "Which programming language is known for its use in web development?",
+      "question_type": "MCQ",
+      "options": ["JavaScript", "COBOL", "FORTRAN", "Assembly"],
+      "correct_answer": "JavaScript"
+    },
+    {
+      "question_id": 5,
+      "exam_id": 2,
+      "question_text": "HTML is a programming language.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "False"
+    },
+    {
+      "question_id": 6,
+      "exam_id": 2,
+      "question_text": "What is 2 + 2?",
+      "question_type": "MCQ",
+      "options": ["3", "4", "5", "6"],
+      "correct_answer": "4"
+    },
+    {
+      "question_id": 7,
+      "exam_id": 3,
+      "question_text": "The chemical symbol for Gold is _______.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "Au"
+    },
+    {
+      "question_id": 8,
+      "exam_id": 3,
+      "question_text": "Which of these is a primary color?",
+      "question_type": "MCQ",
+      "options": ["Green", "Orange", "Purple", "Blue"],
+      "correct_answer": "Blue"
+    },
+    {
+      "question_id": 9,
+      "exam_id": 3,
+      "question_text": "Water boils at 100 degrees Celsius at sea level.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "True"
+    },
+    {
+      "question_id": 10,
+      "exam_id": 4,
+      "question_text": "What is the square root of 64?",
+      "question_type": "MCQ",
+      "options": ["6", "7", "8", "9"],
+      "correct_answer": "8"
+    },
+    {
+      "question_id": 11,
+      "exam_id": 4,
+      "question_text": "The formula for water is _______.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "H2O"
+    },
+    {
+      "question_id": 12,
+      "exam_id": 4,
+      "question_text": "Python is a compiled language.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "False"
+    },
+    {
+      "question_id": 13,
+      "exam_id": 5,
+      "question_text": "Which planet is known as the Red Planet?",
+      "question_type": "MCQ",
+      "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+      "correct_answer": "Mars"
+    },
+    {
+      "question_id": 14,
+      "exam_id": 5,
+      "question_text": "The speed of light is approximately _______ meters per second.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "300000000"
+    },
+    {
+      "question_id": 15,
+      "exam_id": 5,
+      "question_text": "Which of these is a mammal?",
+      "question_type": "MCQ",
+      "options": ["Snake", "Dolphin", "Lizard", "Salmon"],
+      "correct_answer": "Dolphin"
+    },
+    {
+      "question_id": 16,
+      "exam_id": 6,
+      "question_text": "Shakespeare wrote Romeo and Juliet.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "True"
+    },
+    {
+      "question_id": 17,
+      "exam_id": 6,
+      "question_text": "The capital of Japan is _______.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "Tokyo"
+    },
+    {
+      "question_id": 18,
+      "exam_id": 6,
+      "question_text": "Which of these is not a programming language?",
+      "question_type": "MCQ",
+      "options": ["Python", "Java", "Chrome", "Ruby"],
+      "correct_answer": "Chrome"
+    },
+    {
+      "question_id": 19,
+      "exam_id": 7,
+      "question_text": "All insects have six legs.",
+      "question_type": "True/False",
+      "options": null,
+      "correct_answer": "True"
+    },
+    {
+      "question_id": 20,
+      "exam_id": 7,
+      "question_text": "The largest organ in the human body is the _______.",
+      "question_type": "Fill in the Blank",
+      "options": null,
+      "correct_answer": "skin"
+    }
+  ]

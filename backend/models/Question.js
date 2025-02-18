@@ -22,11 +22,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       options: {
-        type: DataTypes.JSON, // For MCQ options
+        type: DataTypes.JSON // For MCQ options
       },
       correct_answer: {
         type: DataTypes.STRING(255),
         allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false
       },
     });
   
