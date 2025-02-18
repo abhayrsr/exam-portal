@@ -1,6 +1,7 @@
 const express = require("express");
 const { sequelize, User, Exam } = require("./models");
 const examRoutes = require('./routes/examRoutes');
+const authRoutes = require('./routes/authRoutes')
 const resultRoutes = require('./routes/resultRoutes')
 
 const app = express();
@@ -23,10 +24,11 @@ app.use(async (req, res, next) => {
 })
 
 app.use("/exams", examRoutes);
+app.use("/auth", authRoutes);
 app.use("/result", resultRoutes);
 
 
-//dummy data
+// dummy data
 // const seedDatabase = async() => {
 //     try{
 //         await sequelize.sync();
@@ -75,5 +77,5 @@ app.use("/result", resultRoutes);
 
 sequelize.sync().then(async () => {
     // await seedDatabase();
-    app.listen(port, () => console.log('Server running on http://localhost: ${port}'));
+    app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
 })
