@@ -1,5 +1,4 @@
 const { Exam } = require('../models');
-const { Op } = require('sequelize');
 
 const getAvailableExams = async(req, res) => {
     try{
