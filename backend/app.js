@@ -1,7 +1,8 @@
 const express = require("express");
 const { sequelize, User, Exam } = require("./models");
 const examRoutes = require('./routes/examRoutes');
-const resultRoutes = require('./routes/resultRoutes')
+const resultRoutes = require('./routes/resultRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 const port = 3000;
@@ -24,6 +25,7 @@ app.use(async (req, res, next) => {
 
 app.use("/exams", examRoutes);
 app.use("/result", resultRoutes);
+app.use("/admin/exams", adminRoutes);
 
 
 //dummy data

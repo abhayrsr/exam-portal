@@ -17,8 +17,10 @@ if (config.use_env_variable) {
 
 const User = require('./User')(sequelize, DataTypes);
 const Exam = require('./Exam')(sequelize, DataTypes);
+const Question = require('./Question')(sequelize, DataTypes);
+const Result =require('./Result')(sequelize, DataTypes);
 
-const db = {sequelize, Sequelize, User, Exam}
+const db = {sequelize, Sequelize, User, Exam, Question, Result};
 
 fs
   .readdirSync(__dirname)

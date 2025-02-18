@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: 'Exams', // References the Exam model
           key: 'exam_id',
-        },
+        }
       },
       question_text: {
         type: DataTypes.TEXT,
@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
     });
+
+    Question.associate = (models) => {
+      Question.belongsTo(models.Exam, { foreignKey: 'exam_id' });
+  };
   
     return Question;
   };
