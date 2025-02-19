@@ -4,11 +4,13 @@ const examRoutes = require('./routes/examRoutes');
 const authRoutes = require('./routes/authRoutes')
 const resultRoutes = require('./routes/resultRoutes')
 
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-
+// Enable CORS for all routes
+app.use(cors());
 // testing
 app.use(async (req, res, next) => {
     try {

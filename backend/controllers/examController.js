@@ -83,11 +83,11 @@ const getExamQuestions = async (req, res) => {
 };
 
 const uploadExam =  async (req, res) => {
-    const { exam_name, course_id, questions } = req.body;
+    const { exam_name, course_id, questions, duration } = req.body;
   
     // Validate the request body
-    if (!exam_name || !course_id || !questions || !Array.isArray(questions)) {
-      return res.status(400).json({ error: 'Invalid request body. Exam name, course ID, and questions are required.' });
+    if (!exam_name || !course_id || !questions || !duration || !Array.isArray(questions)) {
+      return res.status(400).json({ error: 'Invalid request body. Exam name, course ID, Duration and questions are required.' });
     }
   
     try {
@@ -95,6 +95,7 @@ const uploadExam =  async (req, res) => {
       const exam = await Exam.create({
         exam_name,
         course_id,
+        duration,
         uploaded_by: req.user.user_id, // Set the admin's user_id as the uploader
       });
   
