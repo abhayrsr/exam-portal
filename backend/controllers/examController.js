@@ -82,4 +82,44 @@ const getExamQuestions = async (req, res) => {
   }
 };
 
-module.exports = { getAvailableExams, getExamQuestions };
+const uploadExam =  async (req, res) => {
+    const { exam_name, course_id, questions, duration } = req.body;
+  
+    // Validate the request body
+    if (!exam_name || !course_id || !questions || !duration || !Array.isArray(questions)) {
+      return res.status(400).json({ error: 'Invalid request body. Exam name, course ID, Duration and questions are required.' });
+    }
+  
+    try {
+      // Create the exam in the Exams table
+      const exam = await Exam.create({
+        exam_name,
+        course_id,
+        duration,
+        uploaded_by: req.user.user_id, // Set the admin's user_id as the uploader
+      });
+  
+      // Create questions in the Questions table
+      const createdQuestions = await Question.bulkCreate(
+        questions.map((question) => ({
+          exam_id: exam.exam_id, // Link the question to the exam
+          question_text: question.question_text,
+          question_type: question.question_type,
+          options: question.options || null, // Options are only required for MCQ
+          correct_answer: question.correct_answer,
+        }))
+      );
+  
+      // Return the created exam and questions
+      res.status(201).json({
+        message: 'Exam uploaded successfully.',
+        exam,
+        questions: createdQuestions,
+      });
+    } catch (err) {
+      console.error('Error uploading exam:', err);
+      res.status(500).json({ error: 'An error occurred while uploading the exam.' });
+    }
+  }
+
+module.exports = { getAvailableExams, getExamQuestions, uploadExam };

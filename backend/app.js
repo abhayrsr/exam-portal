@@ -10,7 +10,8 @@ const port = 3000;
 
 app.use(bodyParser.json())
 app.use(express.json());
-
+// Enable CORS for all routes
+app.use(cors());
 // testing
 // app.use(async (req, res, next) => {
 //     try {

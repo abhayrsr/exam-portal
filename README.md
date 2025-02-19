@@ -1,2 +1,2 @@
 # exam-portal
-online exam portal for working professional of xyz organisation
+online exam portal for working professionals of xyz organisation
