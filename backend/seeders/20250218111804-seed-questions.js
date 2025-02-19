@@ -67,17 +67,25 @@ const questions = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(
-      'Questions',
-      questions.map((item) => ({
-        ...item,
-        options: item.options ? JSON.stringify(item.options) : null,
-      })),
-      {}
-    );
+    try {
+      await queryInterface.bulkInsert(
+        'Questions',
+        questions.map((item) => ({
+          ...item,
+          options: item.options ? JSON.stringify(item.options) : null,
+        })),
+        {}
+      );
+    } catch (error) {
+      console.error('Error seeding Questions:', error);
+    }
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Questions', null, {});
+    try {
+      await queryInterface.bulkDelete('Questions', null, {});
+    } catch (error) {
+      console.error('Error deleting Questions:', error);
+    }
   },
 };

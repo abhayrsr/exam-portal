@@ -6,8 +6,9 @@ require('dotenv').config();
 
 // POST /login
 router.post('/login', async (req, res) => {
+    console.log(req.body)
   const { army_number, password } = req.body;
-
+  console.log(army_number, password)
   try {
     // Find the user by Army Number using Sequelize
     const user = await db.User.findOne({

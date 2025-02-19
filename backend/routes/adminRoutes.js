@@ -1,9 +1,10 @@
 const express = require("express");
 const {getExamDetails, updateExam} = require("../controllers/adminController");
+const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
 
-router.get("/:exam_id", getExamDetails);
-router.put("/:exam_id", updateExam);
+router.get("/:exam_id", authMiddleware(['Admin']),getExamDetails);
+router.put("/:exam_id", authMiddleware(['Admin']),updateExam);
 
 module.exports = router;
