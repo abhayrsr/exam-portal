@@ -20,6 +20,7 @@ const authMiddleware = (roles = []) => {
     try {
       // Verify the token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(decoded);
 
 
       // Check if the user's role is allowed

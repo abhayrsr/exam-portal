@@ -2,32 +2,34 @@ const express = require("express");
 const { sequelize, User, Exam } = require("./models");
 const examRoutes = require('./routes/examRoutes');
 const authRoutes = require('./routes/authRoutes')
-const resultRoutes = require('./routes/resultRoutes')
-
-const cors = require('cors');
+const resultRoutes = require('./routes/resultRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.json())
 app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 // testing
-app.use(async (req, res, next) => {
-    try {
-        req.user = await User.findOne({ where: { army_number: "ARMY1234" } });
-        if (!req.user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        next(); 
-    } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+// app.use(async (req, res, next) => {
+//     try {
+//         req.user = await User.findOne({ where: { army_number: "ARMY1234" } });
+//         if (!req.user) {
+//             return res.status(404).json({ error: "User not found" });
+//         }
+//         next(); 
+//     } catch (error) {
+//         res.status(500).json({ error: "Internal Server Error" });
+//     }
     
-})
+// })
 
 app.use("/exams", examRoutes);
 app.use("/auth", authRoutes);
 app.use("/result", resultRoutes);
+app.use("/admin/exams", adminRoutes);
 
 
 // dummy data
