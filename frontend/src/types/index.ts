@@ -6,6 +6,7 @@ export interface User {
 }
 
 export interface Exam {
+  exam_id?: number
   exam_name: string;
   course_id: string;
   duration: number;
