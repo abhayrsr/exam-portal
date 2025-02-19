@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      duration: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 60
+      },
       uploaded_by: {
         type: DataTypes.INTEGER,
         allowNull: false,
