@@ -11,9 +11,9 @@ export function ExamList() {
     queryKey: ['exams', role],
     queryFn: async () => {
       const endpoint = role === 'Admin' ? '/admin/exams' : '/exams';
-      const { data } = await api.get<{ data: Exam[] }>(endpoint);
-      // console.log("data", data.data);
-      return data.data;
+      const { data } = await api.get<{ exams: Exam[]}>(endpoint);
+      console.log("data", data.exams);
+      return data.exams;
     },
   });
 

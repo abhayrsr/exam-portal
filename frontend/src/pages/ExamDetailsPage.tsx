@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/axios';
 // import { useExamDetails } from '../hooks/useExamDetails';
@@ -34,9 +34,11 @@ export function ExamDetailsPage() {
                 <p className="mt-2 text-sm text-gray-500">{exam.course_id}</p>
               </div>
               <div className="ml-4 flex-shrink-0 flex space-x-4">
+                <Link to ={`/exams/take/${exam.exam_id}`}>
                 <button className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Take Exam
                 </button>
+                </Link>
               </div>
             </div>
           </div>

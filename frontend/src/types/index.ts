@@ -6,8 +6,9 @@ export interface User {
 }
 
 export interface Exam {
-  id: string;
-  title: string;
+  exam_id: string;
+  exam_name: string;
+  course_id: string;
   description: string;
   duration: number;
   startTime: string;
@@ -24,12 +25,13 @@ export interface ExamDetails{
 }
 
 export interface Question {
-  id: string;
-  text: string;
-  type: 'MCQ' | 'True/False' | 'Fill in the Blank';
-  options?: string[];
-  correctAnswer?: string;
-  points: number;
+  question_id: number;
+  exam_id: number;
+  question_text: string;
+  question_type: 'MCQ' | 'True/False' | 'Fill in the Blank';
+  duration: number;
+  options: string[] | null;
+  correct_answer: string;
 }
 
 export interface ExamSubmission {

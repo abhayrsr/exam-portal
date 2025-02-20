@@ -74,7 +74,7 @@ export function ExamDetails() {
                       <p className="mt-1 text-sm text-gray-600">
                         {question.text}
                       </p>
-                      {question.type === 'MCQ' && (
+                      {question.type === 'multiple-choice' && (
                         <div className="mt-4 space-y-2">
                           {question.options?.map((option, optionIndex) => (
                             <div

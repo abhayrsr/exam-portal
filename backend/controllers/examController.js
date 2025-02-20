@@ -62,7 +62,7 @@ const getExamQuestions = async (req, res) => {
       include: [
         {
           model: Exam,
-          attributes: ["course_id", "exam_name"],
+          attributes: ["course_id", "exam_name", "duration"],
         },
       ],
     });
@@ -73,6 +73,7 @@ const getExamQuestions = async (req, res) => {
           ...question,
           course_id: question.Exam.course_id,
           exam_name: question.Exam.exam_name,
+          duration: question.Exam.duration,
         };
       });
   
@@ -99,6 +100,7 @@ const getExamQuestions = async (req, res) => {
     res.status(200).json({ exam_id,
         course_id: cleanQuestions[0].course_id,
         exam_name: cleanQuestions[0].exam_name,
+        duration: cleanQuestions[0].duration,
         questions: shuffledQuestions, });
   } catch (e) {
     console.error("Error fetching exam questions:", error);

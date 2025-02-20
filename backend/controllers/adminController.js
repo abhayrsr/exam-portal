@@ -27,7 +27,7 @@ const getExamDetails = async (req, res) => {
 
     console.log('x');
 
-    const data = await Exam.findAll({
+    const exams = await Exam.findAll({
         attributes: ["exam_id", "exam_name", "course_id"],
         include: [
           {
@@ -43,11 +43,11 @@ const getExamDetails = async (req, res) => {
         ],
       });
 
-    if (!data.length) {
+    if (!exams.length) {
       return res.status(404).json({ message: "No exam details found" });
     }
 
-    res.status(200).json({ data });
+    res.status(200).json({ exams });
   } catch (e) {
     console.error("Error while fetching the exam details:", e);
     res.status(500).json({ message: "Internal server error" });
