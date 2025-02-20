@@ -23,7 +23,7 @@ export function Sidebar() {
       name: 'Exams',
       href: '/exams',
       icon: BookOpen,
-      current: location.pathname === '/exams',
+      current: '/exams',
     },
   ];
 

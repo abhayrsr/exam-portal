@@ -5,6 +5,8 @@ import type { User } from '../types';
 
 interface AuthContextType {
   user: User | null;
+  role: string | null;
+  userId: string | null;
   login: (army_number: string, password: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
@@ -14,6 +16,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [role, setRole] = useState<'Student' | 'Admin' | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -22,6 +26,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const decoded = jwtDecode<User>(token);
         setUser(decoded);
+        setRole(decoded.role);
+        setUserId(decoded.user_id);
       } catch (error) {
         localStorage.removeItem('token');
       }
@@ -43,10 +49,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    setRole(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, role, userId, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

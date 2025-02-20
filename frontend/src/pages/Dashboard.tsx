@@ -1,18 +1,23 @@
-import { useAuth } from '../contexts/AuthContext';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../lib/axios';
-import { BookOpen, Clock, CheckCircle } from 'lucide-react';
+import { useAuth } from "../contexts/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../lib/axios";
+import { BookOpen, Clock, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
+// import { Activity, ExamDetails } from '../types';
 
 export function Dashboard() {
-  const { user } = useAuth();
+  const { user, role, userId } = useAuth();
   const { data: stats, isLoading } = useQuery({
-    queryKey: ['dashboard-stats'],
+    queryKey: ["dashboard-stats"],
     queryFn: async () => {
-      const { data } = await api.get('/dashboard/stats');
+      const endpoint = role === "Admin" ? "/admin/exams" : "/exams";
+      const { data } = await api.get(endpoint);
+      console.log("exam", data);
       return data;
     },
   });
 
+  console.log("stats", stats);
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -26,7 +31,7 @@ export function Dashboard() {
       <h1 className="text-2xl font-bold text-gray-900">
         Welcome back, {user?.name}
       </h1>
-      
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
@@ -40,7 +45,7 @@ export function Dashboard() {
                     Total Exams
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
-                    {stats?.totalExams ?? 0}
+                    {stats?.exams?.length ?? 0}
                   </dd>
                 </dl>
               </div>
@@ -68,16 +73,18 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        {role !== "Admin" && (<div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <CheckCircle className="h-6 w-6 text-indigo-600" />
-              </div>
+              <Link to={`/exams/results/${userId}`}>
+                <div className="flex-shrink-0">
+                  <Trophy className="h-6 w-6 text-indigo-600" />
+                </div>
+              </Link>
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Completed Exams
+                    Check Results
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {stats?.completedExams ?? 0}
@@ -86,14 +93,14 @@ export function Dashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </div>)}
       </div>
 
-      <div className="bg-white shadow rounded-lg">
+      {/* <div className="bg-white shadow rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="text-lg font-medium text-gray-900">Recent Activity</h2>
           <div className="mt-4 divide-y divide-gray-200">
-            {stats?.recentActivity?.map((activity: any) => (
+            {stats?.recentActivity?.map((activity: Activity) => (
               <div key={activity.id} className="py-4">
                 <div className="flex items-center space-x-4">
                   <div className="flex-1 min-w-0">
@@ -108,7 +115,21 @@ export function Dashboard() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
+
+      {/* <div className="space-y-6">
+  <h2 className="text-lg font-bold">Upcoming Exams</h2>
+  <ul>
+    {stats?.data?.map((exam: ExamDetails ) => (
+      <li key={exam.exam_id}>
+        <div className="flex items-center">
+          <div className="text-lg">{exam.exam_name.slice(0,2)}</div>
+          <div className="text-gray-500">{exam.course_id}</div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div> */}
     </div>
   );
 }

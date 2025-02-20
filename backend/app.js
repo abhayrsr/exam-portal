@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes')
 const resultRoutes = require('./routes/resultRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const cors = require('cors');
 const port = 3000;
@@ -29,7 +30,7 @@ app.use(cors());
 
 app.use("/exams", examRoutes);
 app.use("/auth", authRoutes);
-app.use("/result", resultRoutes);
+app.use("/results", resultRoutes);
 app.use("/admin/exams", adminRoutes);
 
 

@@ -7,9 +7,12 @@ import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { ExamList } from './pages/ExamList';
 import { ExamDetails } from './pages/ExamDetails';
-import { CreateExam } from './pages/CreateExam';
-import { NotFound } from './pages/NotFound';
 import { EditExam } from './pages/EditExam';
+import { ExamDetailsPage } from "./pages/ExamDetailsPage";
+import { TakeExamPage } from "./pages/TakeExamPage";
+import { CreateExam } from "./pages/CreateExam";
+import { NotFound } from "./pages/NotFound";
+import {ResultPage} from "./pages/ResultPage";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +32,14 @@ function App() {
               }
             >
               <Route index element={<Dashboard />} />
-              <Route path="exams" element={<ExamList />} />
+
+              <Route path="/exams" element={<ExamList />} />
+              {/* <Route path="/admin/exams" element={<ExamList />} /> */}
+              <Route path="/exams/:exam_id" element={<ExamDetailsPage />} />
+              <Route path="/exams/take/:exam_id" element={<TakeExamPage />} />
+              <Route path="/exams/results/:exam_id" element={<ResultPage />} />
+
+
               <Route path="exams/:id" element={<ExamDetails />} />
               <Route
                 path="exams/create"
@@ -56,4 +66,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
