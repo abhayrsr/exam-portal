@@ -63,7 +63,7 @@ const getExamDetails = async (req, res) => {
 const updateExam = async (req, res) => {
   try {
     const { exam_id } = req.params;
-    const { title, questions } = req.body;
+    const { title, questions, duration} = req.body;
 
     // Validate Exam
     const exam = await Exam.findByPk(exam_id);
@@ -72,7 +72,7 @@ const updateExam = async (req, res) => {
     }
 
     // Update Exam Info
-    await exam.update({ title });
+    await exam.update({ exam_name: title, duration });
 
     if (questions && Array.isArray(questions)) {
       const existingQuestions = await Question.findAll({
