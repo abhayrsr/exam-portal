@@ -1,28 +1,35 @@
 const { Exam, Question, User } = require("../models");
+const { Op } = require("sequelize");
 
 const getAvailableExams = async (req, res) => {
   try {
     const { user_id } = req.user;
 
-    // Fetch the user's details from the database using Sequelize
+    // Fetch user's course_enrolled
     const user = await User.findOne({
       where: { user_id },
-      attributes: ["course_enrolled"], // Only fetch the course_enrolled field
+      attributes: ["course_enrolled"],
     });
 
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Extract the course_enrolled value
     const { course_enrolled } = user;
-    console.log(course_enrolled);
-    if (!course_enrolled) {
+    console.log("Course enrolled:", course_enrolled);
+
+    if (!course_enrolled || course_enrolled.length === 0) {
       return res.status(400).json({ error: "User course not provided." });
     }
 
+    // Ensure course_enrolled works with both array and single value
+    const courseFilter = Array.isArray(course_enrolled)
+      ? { [Op.in]: course_enrolled }
+      : course_enrolled;
+
+    // Fetch exams matching the user's courses
     const exams = await Exam.findAll({
-      where: { course_id: course_enrolled },
+      where: { course_id: courseFilter },
       attributes: ["exam_id", "exam_name", "upload_date", "duration"],
     });
 
@@ -34,7 +41,7 @@ const getAvailableExams = async (req, res) => {
 
     res.status(200).json({ exams });
   } catch (e) {
-    console.log("Error fetching exams:", e);
+    console.error("Error fetching exams:", e);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -52,9 +59,24 @@ const getExamQuestions = async (req, res) => {
     const questions = await Question.findAll({
       where: { exam_id },
       attributes: ["question_id", "question_text", "question_type", "options"],
+      include: [
+        {
+          model: Exam,
+          attributes: ["course_id", "exam_name", "duration"],
+        },
+      ],
     });
 
-    const cleanQuestions = questions.map((q) => q.get({ plain: true }));
+    const cleanQuestions = questions.map((q) => {
+        const question = q.get({ plain: true });
+        return {
+          ...question,
+          course_id: question.Exam.course_id,
+          exam_name: question.Exam.exam_name,
+          duration: question.Exam.duration,
+        };
+      });
+  
 
     if (questions.length === 0) {
       return res.status(404).json({ message: "No question found" });
@@ -75,7 +97,11 @@ const getExamQuestions = async (req, res) => {
 
     const shuffledQuestions = await shuffleQuestions(cleanQuestions);
 
-    res.status(200).json({ exam_id, questions: shuffledQuestions });
+    res.status(200).json({ exam_id,
+        course_id: cleanQuestions[0].course_id,
+        exam_name: cleanQuestions[0].exam_name,
+        duration: cleanQuestions[0].duration,
+        questions: shuffledQuestions, });
   } catch (e) {
     console.error("Error fetching exam questions:", error);
     res.status(500).json({ error: "Internal Server Error" });

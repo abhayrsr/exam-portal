@@ -1,15 +1,12 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    // await queryInterface.addColumn("Users", "role", {
-    //   type: Sequelize.ENUM("Admin", "Student"),
+  async up (queryInterface, Sequelize) {
+    // await queryInterface.addColumn('Exams', 'duration', {
+    //   type: Sequelize.INTEGER,
     //   allowNull: false,
-    //   defaultValue: "Student",
-    //   validate: {
-    //     isIn: [["Admin", "Student"]], 
-    //   },
+    //   defaultValue: 60
     // });
     /**
      * Add altering commands here.
@@ -19,12 +16,12 @@ module.exports = {
      */
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-  },
+  }
 };

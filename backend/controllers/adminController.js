@@ -21,7 +21,10 @@ const getAllExamDetails = async (req, res) => {
 const getExamDetails = async (req, res) => {
   try {
     const { exam_id } = req.params;
+    console.log(req.params);
 
+    console.log("Exam ID:", exam_id);
+    console.log("Exam ID Type:", typeof exam_id);
     if (!exam_id) {
       return res.status(400).json({ error: "Exam ID not provided" });
     }
@@ -42,6 +45,7 @@ const getExamDetails = async (req, res) => {
         },
       ],
     });
+
 
     if (!data.length) {
       return res.status(404).json({ message: "No exam details found" });
