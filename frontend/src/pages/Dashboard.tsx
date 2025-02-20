@@ -1,21 +1,23 @@
-import { useAuth } from '../contexts/AuthContext';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../lib/axios';
-import { BookOpen, Clock} from 'lucide-react';
+import { useAuth } from "../contexts/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../lib/axios";
+import { BookOpen, Clock, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 // import { Activity, ExamDetails } from '../types';
 
 export function Dashboard() {
-  const { user } = useAuth();
+  const { user, role, userId } = useAuth();
   const { data: stats, isLoading } = useQuery({
-    queryKey: ['dashboard-stats'],
+    queryKey: ["dashboard-stats"],
     queryFn: async () => {
-      const { data } = await api.get('/admin/exams');
-      console.log("exam", data)
+      const endpoint = role === "Admin" ? "/admin/exams" : "/exams";
+      const { data } = await api.get(endpoint);
+      console.log("exam", data);
       return data;
     },
   });
 
-  console.log("stats", stats)
+  console.log("stats", stats);
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -29,7 +31,7 @@ export function Dashboard() {
       <h1 className="text-2xl font-bold text-gray-900">
         Welcome back, {user?.name}
       </h1>
-      
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
@@ -43,7 +45,7 @@ export function Dashboard() {
                     Total Exams
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
-                    {stats?.data?.length ?? 0}
+                    {stats?.exams?.length ?? 0}
                   </dd>
                 </dl>
               </div>
@@ -68,19 +70,21 @@ export function Dashboard() {
                 </dl>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        {role !== "Admin" && (<div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                {/* <CheckCircle className="h-6 w-6 text-indigo-600" /> */}
-              </div>
+              <Link to={`/exams/results/${userId}`}>
+                <div className="flex-shrink-0">
+                  <Trophy className="h-6 w-6 text-indigo-600" />
+                </div>
+              </Link>
               <div className="ml-5 w-0 flex-1">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
-                    Completed Exams
+                    Check Results
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
                     {stats?.completedExams ?? 0}
@@ -89,7 +93,7 @@ export function Dashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </div>)}
       </div>
 
       {/* <div className="bg-white shadow rounded-lg">

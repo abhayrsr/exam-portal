@@ -93,17 +93,18 @@ export function TakeExamPage() {
       }
 
       const payload = {
-        user_id: userId, // Replace with the actual user_id (e.g., from context or session)
+        user_id: userId,
         exam_id: parseInt(exam_id,  10),
         answers: Object.entries(answers).map(([question_id, answer]) => ({
           question_id: parseInt(question_id, 10),
           answer,
         })),
       };
+
   
       console.log("Submitting payload:", payload);
   
-      await api.post(`/result/submit_exam`, payload);
+      await api.post(`/results/submit_exam`, payload);
       alert('Exam submitted successfully!');
       navigate('/');
     } catch (error) {

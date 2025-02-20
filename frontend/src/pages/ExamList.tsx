@@ -55,6 +55,7 @@ export function ExamList() {
                         {exam.duration} minutes
                       </div>
                       {/* <div className="flex items-center text-sm text-gray-500">
+                      {/* <div className="flex items-center text-sm text-gray-500">
                         <Calendar className="h-4 w-4 mr-1" />
                         {new Date(exam.upload_date).toLocaleDateString()}
                       </div> */}

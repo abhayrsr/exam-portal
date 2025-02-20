@@ -1,4 +1,4 @@
-const { Question, Result } = require("../models");
+const { Question, Result, Exam } = require("../models");
 
 const calculateGrade = (percentage) => {
     if (percentage >= 90) return 'A';
@@ -21,6 +21,8 @@ const submitExam = async (req, res) => {
       attributes: ["question_id", "correct_answer"],
       raw: true,
     });
+
+    console.log(questions)
 
     if (!questions.length) {
       return res
@@ -61,4 +63,27 @@ const submitExam = async (req, res) => {
   }
 };
 
-module.exports = { submitExam };
+const getResults = async (req, res) => {
+    const data = req.params;
+    console.log("userid",data)
+    const userId = Number(data.userId)
+    try {
+      const results = await Result.findAll({
+        where: { user_id: userId },
+        include: [
+          { model: Exam, attributes: ['exam_id', 'exam_name'] },
+        ],
+      });
+  
+      if (results.length === 0) {
+        return res.status(404).json({ message: 'No results found for this user' });
+      }
+  
+      res.status(200).json(results);
+    } catch (error) {
+      console.error('Error fetching user results:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+module.exports = { submitExam, getResults };

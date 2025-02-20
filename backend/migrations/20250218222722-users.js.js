@@ -3,14 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("Users", "role", {
-      type: Sequelize.ENUM("Admin", "Student"),
-      allowNull: false,
-      defaultValue: "Student",
-      validate: {
-        isIn: [["Admin", "Student"]], 
-      },
-    });
+    // await queryInterface.addColumn("Users", "role", {
+    //   type: Sequelize.ENUM("Admin", "Student"),
+    //   allowNull: false,
+    //   defaultValue: "Student",
+    //   validate: {
+    //     isIn: [["Admin", "Student"]], 
+    //   },
+    // });
     /**
      * Add altering commands here.
      *

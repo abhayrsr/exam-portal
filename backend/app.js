@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use("/exams", examRoutes);
 app.use("/auth", authRoutes);
-app.use("/result", resultRoutes);
+app.use("/results", resultRoutes);
 app.use("/admin/exams", adminRoutes);
 
 

@@ -24,14 +24,12 @@ export interface ExamDetails{
   Questions: Question[];
 }
 
-export interface Question {
+interface Question {
   question_id: number;
-  exam_id: number;
   question_text: string;
   question_type: 'MCQ' | 'True/False' | 'Fill in the Blank';
-  duration: number;
-  options: string[] | null;
-  correct_answer: string;
+  options?: string[];
+  correct_answer?: string;
 }
 
 export interface ExamSubmission {
