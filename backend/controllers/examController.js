@@ -23,7 +23,7 @@ const getAvailableExams = async (req, res) => {
 
     const exams = await Exam.findAll({
       where: { course_id: course_enrolled },
-      attributes: ["exam_id", "exam_name", "upload_date"],
+      attributes: ["exam_id", "exam_name", "upload_date", "duration"],
     });
 
     if (exams.length === 0) {

@@ -26,7 +26,7 @@ export function Sidebar() {
     },
   ];
 
-  if (user?.role === 'teacher' || user?.role === 'admin') {
+  if (user?.role === 'Admin') {
     navigation.push({
       name: 'Create Exam',
       href: '/exams/create',

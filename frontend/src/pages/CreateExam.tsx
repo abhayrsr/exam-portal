@@ -4,13 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { api } from '../lib/axios';
 import { Plus, Trash2, HelpCircle } from 'lucide-react';
-import type { Question } from '../types';
+import type { Exam, Question } from '../types';
 
 interface ExamForm {
   title: string;
   description: string;
   duration: number;
-  startTime: string;
   questions: Question[];
 }
 
@@ -20,8 +19,8 @@ export function CreateExam() {
   const { register, handleSubmit, formState: { errors } } = useForm<ExamForm>();
 
   const createExamMutation = useMutation({
-    mutationFn: async (data: ExamForm) => {
-      const { data: response } = await api.post('/exams', data);
+    mutationFn: async (data: Exam) => {
+      const { data: response } = await api.post('/exams/upload-exam', data);
       return response;
     },
     onSuccess: () => {
@@ -32,10 +31,10 @@ export function CreateExam() {
   const addQuestion = () => {
     const newQuestion: Question = {
       id: crypto.randomUUID(),
-      text: '',
-      type: 'multiple-choice',
+      question_text: '',
+      question_type: 'MCQ',
       options: ['', '', '', ''],
-      points: 1,
+      correct_answer: '',
     };
     setQuestions([...questions, newQuestion]);
   };
@@ -45,10 +44,14 @@ export function CreateExam() {
   };
 
   const onSubmit = (data: ExamForm) => {
-    createExamMutation.mutate({
-      ...data,
-      questions,
-    });
+    const examData = {
+      exam_name: data.title,
+      course_id: data.description, // assuming course_id is stored in description field
+      duration: data.duration,
+      questions: questions,
+    };
+  
+    createExamMutation.mutate(examData);
   };
 
   return (
@@ -85,11 +88,12 @@ export function CreateExam() {
                 htmlFor="description"
                 className="block text-sm font-medium text-gray-700"
               >
-                Description
+                Course ID
               </label>
-              <textarea
+              <input 
+                type="text"
                 {...register('description', { required: true })}
-                rows={3}
+                
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
               {errors.description && (
@@ -119,7 +123,7 @@ export function CreateExam() {
                 )}
               </div>
 
-              <div>
+              {/* <div>
                 <label
                   htmlFor="startTime"
                   className="block text-sm font-medium text-gray-700"
@@ -136,7 +140,7 @@ export function CreateExam() {
                     Start time is required
                   </p>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -174,7 +178,7 @@ export function CreateExam() {
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
-
+            
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
@@ -182,35 +186,39 @@ export function CreateExam() {
                       </label>
                       <input
                         type="text"
-                        value={question.text}
+                        value={question.question_text}
                         onChange={(e) => {
                           const newQuestions = [...questions];
-                          newQuestions[index].text = e.target.value;
+                          newQuestions[index].question_text = e.target.value;
                           setQuestions(newQuestions);
                         }}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
-
+            
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
                         Question Type
                       </label>
                       <select
-                        value={question.type}
+                        value={question.question_type}
                         onChange={(e) => {
                           const newQuestions = [...questions];
-                          newQuestions[index].type = e.target.value as 'multiple-choice' | 'essay';
-                          setQuestions(newQuestions);
+                          const typeValue = e.target.value;
+                          if (typeValue === 'MCQ' || typeValue === 'True/False' || typeValue === 'Fill in the Blank') {
+                            newQuestions[index].question_type = typeValue;
+                            setQuestions(newQuestions);
+                          }
                         }}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       >
-                        <option value="multiple-choice">Multiple Choice</option>
-                        <option value="essay">Essay</option>
+                        <option value="MCQ">Multiple Choice</option>
+                        <option value="True/False">True/False</option>
+                        <option value="Fill in the Blank">Fill in the Blank</option>
                       </select>
                     </div>
-
-                    {question.type === 'multiple-choice' && (
+            
+                    {question.question_type === 'MCQ' && (
                       <div className="space-y-2">
                         <label className="block text-sm font-medium text-gray-700">
                           Options
@@ -234,20 +242,19 @@ export function CreateExam() {
                         ))}
                       </div>
                     )}
-
+            
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Points
+                        Correct Answer
                       </label>
                       <input
-                        type="number"
-                        value={question.points}
+                        type="text"
+                        value={question.correct_answer}
                         onChange={(e) => {
                           const newQuestions = [...questions];
-                          newQuestions[index].points = Number(e.target.value);
+                          newQuestions[index].correct_answer = e.target.value;
                           setQuestions(newQuestions);
                         }}
-                        min="1"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
