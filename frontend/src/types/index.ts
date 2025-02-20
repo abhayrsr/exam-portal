@@ -14,6 +14,7 @@ export interface Exam {
 }
 
 export interface Question {
+  question_id: Key | null | undefined;
   id: string;
   question_text: string;
   question_type: 'MCQ' | 'True/False' | 'Fill in the Blank';

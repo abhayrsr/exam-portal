@@ -6,6 +6,7 @@ const resultRoutes = require('./routes/resultRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
 app.use(bodyParser.json())

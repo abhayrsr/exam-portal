@@ -1,5 +1,23 @@
 const { Exam, Question } = require("../models");
 
+const getAllExamDetails = async (req, res) => {
+  try {
+
+    const data = await Exam.findAll({
+      attributes: ["exam_id", "exam_name", "course_id"]
+    });
+
+    if (!data.length) {
+      return res.status(404).json({ message: "No exam details found" });
+    }
+
+    res.status(200).json({ data });
+  } catch (e) {
+    console.error("Error while fetching the exam details:", e);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const getExamDetails = async (req, res) => {
   try {
     const { exam_id } = req.params;
@@ -10,7 +28,7 @@ const getExamDetails = async (req, res) => {
 
     const data = await Exam.findAll({
       where: { exam_id },
-      attributes: ["exam_id", "exam_name", "course_id"],
+      attributes: ["exam_id", "exam_name", "course_id", "duration"],
       include: [
         {
           model: Question,
@@ -29,7 +47,13 @@ const getExamDetails = async (req, res) => {
       return res.status(404).json({ message: "No exam details found" });
     }
 
-    res.status(200).json({ data });
+    // Transform the response to change Questions to questions
+    const transformedData = data.map(exam => ({
+      ...exam.toJSON(),
+      questions: exam.Questions,
+    }));
+
+    res.status(200).json({ data: transformedData });
   } catch (e) {
     console.error("Error while fetching the exam details:", e);
     res.status(500).json({ message: "Internal server error" });
@@ -39,7 +63,7 @@ const getExamDetails = async (req, res) => {
 const updateExam = async (req, res) => {
   try {
     const { exam_id } = req.params;
-    const { title, description, questions } = req.body;
+    const { title, questions } = req.body;
 
     // Validate Exam
     const exam = await Exam.findByPk(exam_id);
@@ -48,7 +72,7 @@ const updateExam = async (req, res) => {
     }
 
     // Update Exam Info
-    await exam.update({ title, description });
+    await exam.update({ title });
 
     if (questions && Array.isArray(questions)) {
       const existingQuestions = await Question.findAll({
@@ -121,4 +145,4 @@ const updateExam = async (req, res) => {
   }
 };
 
-module.exports = { getExamDetails, updateExam };
+module.exports = { getAllExamDetails, getExamDetails, updateExam };

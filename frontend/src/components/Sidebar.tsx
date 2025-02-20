@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   BookOpen,
   PlusCircle,
+  Pencil,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -32,6 +33,12 @@ export function Sidebar() {
       href: '/exams/create',
       icon: PlusCircle,
       current: location.pathname === '/exams/create',
+    });
+    navigation.push({
+      name: 'Edit Exam',
+      href: '/exams/edit',
+      icon: Pencil,
+      current: location.pathname === '/exams/edit',
     });
   }
 

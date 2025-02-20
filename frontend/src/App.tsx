@@ -9,6 +9,7 @@ import { ExamList } from './pages/ExamList';
 import { ExamDetails } from './pages/ExamDetails';
 import { CreateExam } from './pages/CreateExam';
 import { NotFound } from './pages/NotFound';
+import { EditExam } from './pages/EditExam';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['Admin']}>
                     <CreateExam />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="exams/edit"
+                element={
+                  <ProtectedRoute allowedRoles={['Admin']}>
+                    <EditExam />
                   </ProtectedRoute>
                 }
               />
