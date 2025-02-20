@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes')
 const resultRoutes = require('./routes/resultRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 

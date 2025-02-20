@@ -9,7 +9,7 @@ import { cn } from '../lib/utils';
 
 export function Sidebar() {
   const location = useLocation();
-  const { user } = useAuth();
+  const { role } = useAuth();
 
   const navigation = [
     {
@@ -20,13 +20,15 @@ export function Sidebar() {
     },
     {
       name: 'Exams',
-      href: '/exams',
+      href: role === 'Admin' ? '/admin/exams' : '/exams',
       icon: BookOpen,
-      current: location.pathname === '/exams',
+      current: location.pathname === '/exams' ||location.pathname === '/admin/exams',
     },
   ];
 
-  if (user?.role === 'teacher' || user?.role === 'admin') {
+  console.log('Exams Link:', role === 'Admin' ? '/admin/exams' : '/exams');
+
+  if (role === 'teacher' || role === 'Admin') {
     navigation.push({
       name: 'Create Exam',
       href: '/exams/create',

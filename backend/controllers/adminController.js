@@ -2,28 +2,46 @@ const { Exam, Question } = require("../models");
 
 const getExamDetails = async (req, res) => {
   try {
-    const { exam_id } = req.params;
+    // const { exam_id } = req.param
 
-    if (!exam_id) {
-      return res.status(400).json({ error: "Exam ID not provided" });
-    }
+    // if (!exam_id) {
+    //   return res.status(400).json({ error: "Exam ID not provided" });
+    // }
+
+    // const data = await Exam.findAll({
+    //   where: { exam_id },
+    //   attributes: ["exam_id", "exam_name", "course_id"],
+    //   include: [
+    //     {
+    //       model: Question,
+    //       attributes: [
+    //         "question_id",
+    //         "question_text",
+    //         "question_type",
+    //         "correct_answer",
+    //         "options",
+    //       ],
+    //     },
+    //   ],
+    // });
+
+    console.log('x');
 
     const data = await Exam.findAll({
-      where: { exam_id },
-      attributes: ["exam_id", "exam_name", "course_id"],
-      include: [
-        {
-          model: Question,
-          attributes: [
-            "question_id",
-            "question_text",
-            "question_type",
-            "correct_answer",
-            "options",
-          ],
-        },
-      ],
-    });
+        attributes: ["exam_id", "exam_name", "course_id"],
+        include: [
+          {
+            model: Question,
+            attributes: [
+              "question_id",
+              "question_text",
+              "question_type",
+              "correct_answer",
+              "options",
+            ],
+          },
+        ],
+      });
 
     if (!data.length) {
       return res.status(404).json({ message: "No exam details found" });

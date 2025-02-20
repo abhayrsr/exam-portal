@@ -16,6 +16,13 @@ export interface Exam {
   createdBy: string;
 }
 
+export interface ExamDetails{
+  exam_id: number;
+  exam_name: string;
+  course_id: string;
+  Questions: Question[];
+}
+
 export interface Question {
   id: string;
   text: string;
@@ -37,4 +44,11 @@ export interface ExamSubmission {
 export interface Answer {
   questionId: string;
   answer: string;
+}
+
+export interface Activity {
+  id: string;
+  title: string;
+  description: string;
+  time: string;
 }

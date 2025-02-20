@@ -74,7 +74,7 @@ export function ExamDetails() {
                       <p className="mt-1 text-sm text-gray-600">
                         {question.text}
                       </p>
-                      {question.type === 'multiple-choice' && (
+                      {question.type === 'MCQ' && (
                         <div className="mt-4 space-y-2">
                           {question.options?.map((option, optionIndex) => (
                             <div
@@ -93,7 +93,7 @@ export function ExamDetails() {
                           ))}
                         </div>
                       )}
-                      {question.type === 'essay' && (
+                      {question.type === 'Fill in the Blank' && (
                         <textarea
                           rows={4}
                           className="mt-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

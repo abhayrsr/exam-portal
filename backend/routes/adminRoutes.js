@@ -4,7 +4,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
 
-router.get("/:exam_id", authMiddleware(['Admin']),getExamDetails);
+router.get("/", authMiddleware(['Admin']),getExamDetails);
 router.put("/:exam_id", authMiddleware(['Admin']),updateExam);
 
 module.exports = router;
