@@ -20,11 +20,14 @@ const getAllExamDetails = async (req, res) => {
 
 const getExamDetails = async (req, res) => {
   try {
-    // const { exam_id } = req.param
+    const { exam_id } = req.params;
+    console.log(req.params);
 
-    // if (!exam_id) {
-    //   return res.status(400).json({ error: "Exam ID not provided" });
-    // }
+    console.log("Exam ID:", exam_id);
+    console.log("Exam ID Type:", typeof exam_id);
+    if (!exam_id) {
+      return res.status(400).json({ error: "Exam ID not provided" });
+    }
 
     const data = await Exam.findAll({
       where: { exam_id },

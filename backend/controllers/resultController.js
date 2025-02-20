@@ -57,7 +57,7 @@ const submitExam = async (req, res) => {
         score,
       });
 
-  } catch (e) {
+  } catch (error) {
     console.error("Error submitting exam:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
