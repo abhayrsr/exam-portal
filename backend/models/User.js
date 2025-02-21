@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING(255),
     }
+  },
+  {
+    timestamps: false // Disable createdAt and updatedAt
   });
 
   User.associate = (models) => {
