@@ -52,10 +52,10 @@ export function TakeExamPage() {
       alert('Pasting is not allowed on this page.');
     };
 
-    // document.oncontextmenu = (e) => {
-    //   e.preventDefault();
-    //   alert('Right-clicking is not allowed on this page.');
-    // };
+    document.oncontextmenu = (e) => {
+      e.preventDefault();
+      alert('Right-clicking is not allowed on this page.');
+    };
 
     return () => {
       window.onbeforeunload = null;

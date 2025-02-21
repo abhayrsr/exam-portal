@@ -24,7 +24,7 @@ export function ExamList() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Available Exams</h1>
+        <h1 className="text-3xl font-extrabold text-gray-900">Available Exams</h1>
       </div>
 
       <div className="bg-white shadow overflow-hidden sm:rounded-md">

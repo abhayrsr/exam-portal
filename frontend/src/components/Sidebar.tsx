@@ -19,13 +19,17 @@ export function Sidebar() {
       icon: LayoutDashboard,
       current: location.pathname === '/',
     },
-    {
+  ];
+
+  if(user?.role !== 'Admin') {
+    navigation.push({
       name: 'Exams',
       href: '/exams',
       icon: BookOpen,
-      current: '/exams',
-    },
-  ];
+      current: location.pathname === '/exams',
+    }
+  )
+}
 
   if (user?.role === 'Admin') {
     navigation.push({
@@ -35,7 +39,7 @@ export function Sidebar() {
       current: location.pathname === '/exams/create',
     });
     navigation.push({
-      name: 'Edit Exam',
+      name: 'Manage Exams',
       href: '/exams/edit',
       icon: Pencil,
       current: location.pathname === '/exams/edit',
