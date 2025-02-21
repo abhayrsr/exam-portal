@@ -63,6 +63,7 @@ export function EditExam() {
     },
     onSuccess: () => {
       setSelectedExamId(null);
+      alert('Exam updated successfully');
       refetchExams();
     },
   });

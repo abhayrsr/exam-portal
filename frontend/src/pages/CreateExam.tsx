@@ -24,7 +24,8 @@ export function CreateExam() {
       return response;
     },
     onSuccess: () => {
-      navigate('/exams');
+      alert('Exam created successfully');
+      navigate('/');
     },
   });
 
