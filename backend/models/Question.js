@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       options: {
-        type: DataTypes.JSON // For MCQ options
+        type: DataTypes.TEXT // For MCQ options
       },
       correct_answer: {
         type: DataTypes.STRING(255),

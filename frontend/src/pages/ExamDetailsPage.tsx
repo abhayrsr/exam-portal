@@ -30,11 +30,11 @@ export function ExamDetailsPage() {
           <div className="px-4 py-4 sm:px-6">
             <div className="flex items-center justify-between">
               <div className="flex-1 min-w-0">
-                <h1 className="text-xl font-bold text-indigo-600">{exam.exam_name}</h1>
-                <p className="mt-2 text-sm text-gray-500">{exam.course_id}</p>
+                <h1 className="text-xl font-bold text-indigo-600">{exam?.exam_name}</h1>
+                <p className="mt-2 text-sm text-gray-500">{exam?.course_id}</p>
               </div>
               <div className="ml-4 flex-shrink-0 flex space-x-4">
-                <Link to ={`/exams/take/${exam.exam_id}`}>
+                <Link to ={`/exams/take/${exam?.exam_id}`}>
                 <button className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Take Exam
                 </button>

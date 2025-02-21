@@ -123,7 +123,7 @@ const updateExam = async (req, res) => {
             exam_id,
             question_text: q.question_text,
             question_type: q.question_type,
-            options: q.options || null,
+            options: JSON.stringify(q.options) || null,
             correct_answer: q.correct_answer,
           });
           updatedQuestionIds.push(newQuestion.question_id);

@@ -71,6 +71,7 @@ const getExamQuestions = async (req, res) => {
         const question = q.get({ plain: true });
         return {
           ...question,
+          options: question.options ? JSON.parse(question.options) : null,
           course_id: question.Exam.course_id,
           exam_name: question.Exam.exam_name,
           duration: question.Exam.duration,
@@ -131,7 +132,7 @@ const uploadExam =  async (req, res) => {
           exam_id: exam.exam_id, // Link the question to the exam
           question_text: question.question_text,
           question_type: question.question_type,
-          options: question.options || null, // Options are only required for MCQ
+          options: JSON.stringify(question.options)  || null, // Options are only required for MCQ
           correct_answer: question.correct_answer,
         }))
       );

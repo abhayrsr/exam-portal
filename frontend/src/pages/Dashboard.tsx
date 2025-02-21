@@ -97,7 +97,7 @@ export function Dashboard() {
                         Check Results
                       </dt>
                       <dd className="text-lg font-medium text-gray-900">
-                        {result.length ?? 0}
+                        {result?.length ?? 0}
                       </dd>
                     </dl>
                   </div>
