@@ -12,6 +12,8 @@ export function TakeExamPage() {
   const [timeLeft, setTimeLeft] = useState<number>(0); // 30 minutes in seconds
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isExamInProgress, setIsExamInProgress] = useState<boolean>(true);
 
   const { data: exam, isLoading } = useQuery<Exam>({
     queryKey: ['exam-questions', exam_id],
@@ -29,16 +31,23 @@ export function TakeExamPage() {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
+      if (!document.fullscreenElement && isExamInProgress) {
         alert('You are not allowed to leave the fullscreen during the exam.');
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.error('Failed to enable fullscreen mode:', err);
+        });
       }
     };
 
-    document.documentElement.requestFullscreen();
+    document.documentElement.requestFullscreen().catch((err) => {
+      console.error('Failed to enable fullscreen mode:', err);
+    });
     document.addEventListener('fullscreenchange', handleFullscreenChange);
 
-    window.onbeforeunload = () => 'Are you sure you want to leave the exam page?';
+    window.onbeforeunload = (e) => {
+      e.preventDefault();
+      e.returnValue = 'Are you sure you want to leave the exam page?';
+    };
 
     document.oncopy = (e) => {
       e.preventDefault();
@@ -54,9 +63,11 @@ export function TakeExamPage() {
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
+      if (document.hidden && isExamInProgress) {
         alert('Switching tabs is not allowed during the exam.');
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.error('Failed to enable fullscreen mode:', err);
+        });
       }
     };
 
@@ -70,7 +81,7 @@ export function TakeExamPage() {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [isExamInProgress]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -98,6 +109,8 @@ export function TakeExamPage() {
         return;
       }
 
+      setIsSubmitting(true);
+
       const payload = {
         user_id: userId,
         exam_id: parseInt(exam_id, 10),
@@ -111,10 +124,13 @@ export function TakeExamPage() {
 
       await api.post(`/results/submit_exam`, payload);
       alert('Exam submitted successfully!');
+      setIsExamInProgress(false);
       navigate('/');
     } catch (error) {
       console.error('Submission error:', error);
       alert('Failed to submit exam. Try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -223,12 +239,15 @@ export function TakeExamPage() {
         </div>
       </div>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-      >
-        Submit Exam
-      </button>
+      <div className="fixed bottom-4 right-4">
+        <button
+          onClick={handleSubmit}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit Exam'}
+        </button>
+      </div>
     </div>
   );
 }

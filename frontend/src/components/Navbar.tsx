@@ -2,7 +2,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { LogOut, User } from 'lucide-react';
 
-export function Navbar() {
+export function Navbar({ isExamInProgress }: { isExamInProgress: boolean }) {
   const { user, logout } = useAuth();
 
   return (
@@ -18,23 +18,25 @@ export function Navbar() {
             </Link>
           </div>
 
-          <div className="flex items-center">
-            <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-              <div className="ml-3 relative flex items-center space-x-4">
-                <div className="text-sm text-gray-700">
-                  <User className="h-4 w-4 inline-block mr-1" />
-                  {user?.name}
+          {!isExamInProgress && (
+            <div className="flex items-center">
+              <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                <div className="ml-3 relative flex items-center space-x-4">
+                  <div className="text-sm text-gray-700">
+                    <User className="h-4 w-4 inline-block mr-1" />
+                    {user?.name}
+                  </div>
+                  <button
+                    onClick={logout}
+                    className="text-gray-700 hover:text-gray-900 text-sm flex items-center"
+                  >
+                    <LogOut className="h-4 w-4 mr-1" />
+                    Logout
+                  </button>
                 </div>
-                <button
-                  onClick={logout}
-                  className="text-gray-700 hover:text-gray-900 text-sm flex items-center"
-                >
-                  <LogOut className="h-4 w-4 mr-1" />
-                  Logout
-                </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </nav>

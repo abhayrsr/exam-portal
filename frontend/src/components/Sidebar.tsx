@@ -8,9 +8,13 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-export function Sidebar() {
+export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
   const location = useLocation();
   const { user } = useAuth();
+
+  if (isExamInProgress) {
+    return null;
+  }
 
   const navigation = [
     {
