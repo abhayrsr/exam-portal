@@ -1,7 +1,7 @@
 import { useAuth } from "../contexts/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/axios";
-import { BookOpen, Clock, Trophy } from "lucide-react";
+import { BookOpen, Clock, Trophy, DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 // import { Activity, ExamDetails } from '../types';
 
@@ -21,6 +21,15 @@ export function Dashboard() {
     queryKey: ["dashboard-result"],
     queryFn: async () => {
       const { data } = await api.get(`/results/${userId}`);
+      console.log("result", data);
+      return data;
+    },
+  });
+
+  const { data: adminResult } = useQuery({
+    queryKey: ["dashboard-result"],
+    queryFn: async () => {
+      const { data } = await api.get(`/admin/results`);
       console.log("result", data);
       return data;
     },
@@ -81,6 +90,33 @@ export function Dashboard() {
             </div>
           </div>
         </div>
+
+        {role === "Admin" && (
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <Link
+                to="/results/download"
+                className="text-indigo-600 hover:text-indigo-700"
+              >
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <DownloadIcon className="h-6 w-6" />
+                  </div>
+                  <div className="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt className="text-sm font-medium text-gray-500 truncate">
+                        Results
+                      </dt>
+                      <dd className="text-lg font-medium text-gray-900">
+                        {adminResult?.length ?? 0}
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
 
         {role !== "Admin" && (
           <div className="bg-white overflow-hidden shadow rounded-lg">
