@@ -51,7 +51,7 @@ export function Login() {
                 placeholder="Army Number"
               />
               {errors.army_number && (
-                <p className="mt-1 text-sm text-red-600">Email is required</p>
+                <p className="mt-1 text-sm text-red-600">Army number is required</p>
               )}
             </div>
             <div>

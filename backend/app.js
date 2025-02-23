@@ -31,6 +31,7 @@ app.use("/exams", examRoutes);
 app.use("/auth", authRoutes);
 app.use("/results", resultRoutes);
 app.use("/admin/exams", adminRoutes);
+app.use("/admin", adminRoutes);
 
 
 // dummy data

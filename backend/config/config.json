@@ -3,7 +3,7 @@
     "username": "freedb_devadmin",
     "password": "Kth*pen3s9@RX8S",
     "database": "freedb_exam_portal",
-    "host": "sql.freedb.tech",
+    "host": "17.0.0.1",
     "dialect": "mysql"
   },
   "test": {

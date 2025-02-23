@@ -12,8 +12,9 @@ import { ExamDetailsPage } from "./pages/ExamDetailsPage";
 import { TakeExamPage } from "./pages/TakeExamPage";
 import { CreateExam } from "./pages/CreateExam";
 import { NotFound } from "./pages/NotFound";
-import { ResultPage } from "./pages/ResultPage";
-import { useEffect } from 'react'; // Import useEffect
+import {ResultPage} from "./pages/ResultPage";
+import {ResultsDownloadPage} from "./pages/ResultsDownloadPage";
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,8 @@ function App() {
               <Route path="/exams/:exam_id" element={<ExamDetailsPage />} />
               <Route path="/exams/take/:exam_id" element={<TakeExamPageWrapper />} />
               <Route path="/exams/results/:exam_id" element={<ResultPage />} />
+              <Route path="/results/download" element={<ResultsDownloadPage />} />
+
 
               <Route path="exams/:id" element={<ExamDetails />} />
               <Route

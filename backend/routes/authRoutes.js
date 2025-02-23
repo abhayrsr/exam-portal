@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // POST /login
 router.post('/login', async (req, res) => {
-    console.log(req.body)
+    console.log("body", req.body)
   const { army_number, password } = req.body;
   console.log(army_number, password)
   try {

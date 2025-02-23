@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   {
-    timestamps: false // Disable createdAt and updatedAt
+    timestamps: false 
   });
 
   User.associate = (models) => {

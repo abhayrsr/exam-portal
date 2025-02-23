@@ -87,8 +87,12 @@ export function EditExam() {
     updateExamMutation.mutate(data);
   };
 
-  if (isLoadingExams) {
-    return <div>Loading...</div>;
+  if (isLoadingExam) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500">Manage Exam...</div>
+      </div>
+    );
   }
 
   return (

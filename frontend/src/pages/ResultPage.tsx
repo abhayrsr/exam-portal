@@ -7,6 +7,7 @@ import { Clock } from "lucide-react";
 
 export const ResultPage = () => {
   const { userId } = useAuth();
+  console.log(userId)
   const { data: results, isLoading } = useQuery<ResultsResponse>({
     queryKey: ["results"],
     queryFn: async () => {
