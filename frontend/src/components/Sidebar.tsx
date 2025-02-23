@@ -8,9 +8,13 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-export function Sidebar() {
+export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
   const location = useLocation();
   const { user } = useAuth();
+
+  if (isExamInProgress) {
+    return null;
+  }
 
   const navigation = [
     {
@@ -47,7 +51,7 @@ export function Sidebar() {
   }
 
   return (
-    <div className="hidden md:flex md:w-64 md:flex-col">
+    <div className="hidden md:flex md:w-64 md:flex-col h-screen">
       <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto">
         <div className="flex-grow flex flex-col">
           <nav className="flex-1 px-2 pb-4 space-y-1">

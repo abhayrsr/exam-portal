@@ -41,6 +41,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem('token', data.token);
       const decoded = jwtDecode<User>(data.token);
       setUser(decoded);
+      setRole(decoded.role);
+      setUserId(decoded.user_id);
     } catch (error) {
       throw new Error('Invalid credentials');
     }
@@ -50,6 +52,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('token');
     setUser(null);
     setRole(null);
+    setUserId(null);
+    window.location.reload(); // Reload the application to reset all state
   };
 
   return (

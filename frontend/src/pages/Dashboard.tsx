@@ -10,10 +10,15 @@ export function Dashboard() {
   const { data: stats, isLoading } = useQuery({
     queryKey: ["dashboard-stats"],
     queryFn: async () => {
-      // const endpoint = role === "Admin" ? "/admin/exams" : "/exams";
-      const { data } = await api.get("/exams");
+      const endpoint = role === "Admin" ? "/admin/exams" : "/exams";
+      const { data } = await api.get(endpoint);
       console.log("exam", data);
-      return data;
+      if (role === "Admin") {
+        return data.data;
+      }
+      else{
+        return data.exams;
+      }
     },
   });
 
@@ -54,7 +59,7 @@ export function Dashboard() {
                     Total Exams
                   </dt>
                   <dd className="text-lg font-medium text-gray-900">
-                    {stats?.exams?.length ?? 0}
+                    {stats?.length ?? 0}
                   </dd>
                 </dl>
               </div>
