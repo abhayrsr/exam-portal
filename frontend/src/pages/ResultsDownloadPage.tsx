@@ -7,13 +7,15 @@ export const ResultsDownloadPage = () => {
   const { data: allResults, isLoading } = useQuery({
     queryKey: ["all-results"],
     queryFn: async () => {
-      const { data } = await api.get("/admin/results");
+      const { data } = await api.get("/admin/exams/results");
       console.log("data", data);
       return data;
     },
   });
 
   const [results, setResults] = useState([]);
+  const [courseId, setCourseId] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (allResults) {
@@ -21,7 +23,26 @@ export const ResultsDownloadPage = () => {
     }
   }, [allResults]);
 
-  const handleDownloadResults = async () => {
+  useEffect(() => {
+    if (allResults) {
+      const allCourses = allResults.map(
+        (result) => result?.User?.course_enrolled
+      );
+      const uniqueCourses = Array.from(new Set(allCourses));
+      setCourseId(uniqueCourses);
+    }
+  }, [allResults]);
+
+  const handleDownloadResult = async (crsId) => {
+    const filteredResults = results.filter(
+      (result) => result?.User?.course_enrolled === crsId
+    );
+
+    const gradeOrder = { A: 1, B: 2, C: 3, F: 4 };
+    filteredResults.sort((a, b) => {
+      return gradeOrder[a?.grade] - gradeOrder[b?.grade];
+    });
+
     const workbook = new Workbook();
     const worksheet = workbook.addWorksheet("Results");
 
@@ -36,7 +57,7 @@ export const ResultsDownloadPage = () => {
       { header: "Grade", key: "grade" },
     ];
 
-    results.forEach((result) => {
+    filteredResults?.forEach((result) => {
       worksheet.addRow({
         studentName: result?.User?.username,
         armyNumber: result?.User?.army_number,
@@ -67,12 +88,122 @@ export const ResultsDownloadPage = () => {
         <h1 className="text-3xl font-extrabold text-gray-900">
           Results Download Page
         </h1>
-        <button
+
+        <div className="relative inline-block text-left">
+          <div>
+            <button
+              type="button"
+              className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-green-700"
+              id="menu-button"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Download Results
+              <svg
+                className="-mr-1 size-5 text-gray-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          {isOpen && (
+            <div
+              className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white ring-1 shadow-lg ring-black/5 focus:outline-hidden"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="menu-button"
+              tabindex="-1"
+            >
+              <div className="py-1" role="none">
+                {courseId?.map((crsId, index) => (
+                  <a
+                    className="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabindex="-1"
+                    id={`menu-item-${index}`}
+                    key={index}
+                  >
+                    <button
+                      onClick={() => handleDownloadResult(crsId)}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      {crsId}
+                    </button>
+                  </a>
+                ))}
+
+                {/* 
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-0"
+              >
+                Account settings
+              </a>
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-1"
+              >
+                Support
+              </a>
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-2"
+              >
+                License
+              </a>
+              <form method="POST" action="#" role="none">
+                <button
+                  type="submit"
+                  className="block w-full px-4 py-2 text-left text-sm text-gray-700"
+                  role="menuitem"
+                  tabindex="-1"
+                  id="menu-item-3"
+                >
+                  Sign out
+                </button>
+              </form> */}
+              </div>
+            </div>
+          )}
+        </div>
+        {/* <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
           onClick={handleDownloadResults}
-          className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
         >
           Download Results
         </button>
+        <ul
+          className="hidden absolute bg-white shadow-md p-2 w-48"
+          id="download-results-dropdown"
+        >
+          {courseId?.map((crsId, index) => (
+            <li key={index}>
+              <button
+                onClick={() =>
+                  handleDownloadResult(crsId)
+                }
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                {crsId}
+              </button>
+            </li>
+          ))}
+        </ul> */}
       </div>
 
       {/* Loading State */}
