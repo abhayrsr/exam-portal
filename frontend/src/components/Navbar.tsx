@@ -1,18 +1,20 @@
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { LogOut, User } from 'lucide-react';
+import backgroundImage from "../../src/assets/banner.jpg";  
 
 export function Navbar({ isExamInProgress }: { isExamInProgress: boolean }) {
   const { user, logout } = useAuth();
 
   return (
     <nav className="bg-white shadow">
+      <div className="h-screen bg-cover bg-center" style={{backgroundImage: `url(${backgroundImage})`,  backgroundSize: "cover", backgroundPosition: "center",  height:"10rem"}}></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link
               to="/"
-              className="flex-shrink-0 flex items-center text-indigo-600 font-bold text-lg"
+              className="flex-shrink-0 flex items-center text-green-800 font-bold text-lg"
             >
               Online Exam System
             </Link>

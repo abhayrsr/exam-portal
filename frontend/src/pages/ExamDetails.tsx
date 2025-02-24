@@ -65,7 +65,7 @@ export function ExamDetails() {
                 >
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
-                      <HelpCircle className="h-5 w-5 text-indigo-600" />
+                      <HelpCircle className="h-5 w-5 text-green-600" />
                     </div>
                     <div className="ml-3">
                       <p className="text-sm font-medium text-gray-900">
@@ -84,7 +84,7 @@ export function ExamDetails() {
                               <input
                                 type="radio"
                                 name={`question-${question.id}`}
-                                className="h-4 w-4 text-indigo-600 border-gray-300"
+                                className="h-4 w-4 text-green-600 border-gray-300"
                               />
                               <label className="ml-3 text-sm text-gray-600">
                                 {option}
@@ -96,7 +96,7 @@ export function ExamDetails() {
                       {question.type === 'Fill in the Blank' && (
                         <textarea
                           rows={4}
-                          className="mt-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm"
                           placeholder="Enter your answer here..."
                         />
                       )}

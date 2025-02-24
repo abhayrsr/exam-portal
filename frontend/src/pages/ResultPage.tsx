@@ -38,7 +38,7 @@ export const ResultPage = () => {
                 <div className="px-6 py-5">
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col space-y-1">
-                      <h2 className="text-lg font-semibold text-indigo-600">{result.Exam.exam_name}</h2>
+                      <h2 className="text-lg font-semibold text-green-600">{result.Exam.exam_name}</h2>
                       <div className="text-gray-600 flex items-center space-x-4 mt-2">
                         <span className="flex items-center">
                           📊 <span className="ml-1">Score: {result.score}</span>

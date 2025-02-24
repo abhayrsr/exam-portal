@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { api } from '../lib/axios';
 import { Plus, Trash2, HelpCircle } from 'lucide-react';
 import type { Exam, Question } from '../types';
+import backgroundImage from "../../src/assets/flag.jpg";
 
 interface ExamForm {
   title: string;
@@ -56,6 +57,14 @@ export function CreateExam() {
   };
 
   return (
+    <div
+      className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}>
     <div className="space-y-6">
       <div className="bg-white shadow sm:rounded-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-6">
@@ -77,7 +86,7 @@ export function CreateExam() {
               <input
                 type="text"
                 {...register('title', { required: true })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-100 h-8 px-3"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
               />
               {errors.title && (
                 <p className="mt-1 text-sm text-red-600">Title is required</p>
@@ -95,7 +104,7 @@ export function CreateExam() {
                 <input 
                   type="text"
                   {...register('description', { required: true })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-100 h-8 px-3"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
                 />
                 {errors.description && (
                   <p className="mt-1 text-sm text-red-600">
@@ -114,7 +123,7 @@ export function CreateExam() {
                 <input
                   type="number"
                   {...register('duration', { required: true, min: 1 })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-100 h-8 px-3"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
                 />
                 {errors.duration && (
                   <p className="mt-1 text-sm text-red-600">
@@ -131,7 +140,7 @@ export function CreateExam() {
               <button
                 type="button"
                 onClick={addQuestion}
-                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Question
@@ -146,7 +155,7 @@ export function CreateExam() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-center">
-                      <HelpCircle className="h-5 w-5 text-indigo-600" />
+                      <HelpCircle className="h-5 w-5 text-green-600" />
                       <span className="ml-2 text-sm font-medium text-gray-900">
                         Question {index + 1}
                       </span>
@@ -173,7 +182,7 @@ export function CreateExam() {
                           newQuestions[index].question_text = e.target.value;
                           setQuestions(newQuestions);
                         }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  h-8 px-3"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm  h-8 px-3"
                       />
                     </div>
             
@@ -192,7 +201,7 @@ export function CreateExam() {
                               setQuestions(newQuestions);
                             }
                           }}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  h-8 px-3"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm  h-8 px-3"
                         >
                           <option value="MCQ">Multiple Choice</option>
                           <option value="True/False">True/False</option>
@@ -212,7 +221,7 @@ export function CreateExam() {
                             newQuestions[index].correct_answer = e.target.value;
                             setQuestions(newQuestions);
                           }}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  h-8 px-3"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm  h-8 px-3"
                         />
                       </div>
                     </div>
@@ -236,7 +245,7 @@ export function CreateExam() {
                               }
                             }}
                             placeholder={`Option ${optionIndex + 1}`}
-                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  h-8 px-3"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm  h-8 px-3"
                           />
                         ))}
                       </div>
@@ -251,13 +260,14 @@ export function CreateExam() {
             <button
               type="submit"
               disabled={createExamMutation.isPending}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
             >
               {createExamMutation.isPending ? 'Creating...' : 'Create Exam'}
             </button>
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 }

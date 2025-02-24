@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/axios";
 import { BookOpen, Clock, Trophy, DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import backgroundImage from "../../src/assets/flag.jpg";
+    
 // import { Activity, ExamDetails } from '../types';
 
 export function Dashboard() {
@@ -50,6 +52,15 @@ export function Dashboard() {
   }
 
   return (
+    <div
+      className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}
+    >
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">
         Welcome back, {user?.name}
@@ -60,7 +71,7 @@ export function Dashboard() {
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <BookOpen className="h-6 w-6 text-indigo-600" />
+                <BookOpen className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
@@ -80,7 +91,7 @@ export function Dashboard() {
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Clock className="h-6 w-6 text-indigo-600" />
+                <Clock className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
@@ -101,7 +112,7 @@ export function Dashboard() {
             <div className="p-5">
               <Link
                 to="/results/download"
-                className="text-indigo-600 hover:text-indigo-700"
+                className="text-green-600 hover:text-green-700"
               >
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -129,7 +140,7 @@ export function Dashboard() {
               <Link to={`/exams/results/${userId}`}>
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <Trophy className="h-6 w-6 text-indigo-600" />
+                    <Trophy className="h-6 w-6 text-green-600" />
                   </div>
 
                   <div className="ml-5 w-0 flex-1">
@@ -149,5 +160,7 @@ export function Dashboard() {
         )}
       </div>
     </div>
+    </div>
+    
   );
 }

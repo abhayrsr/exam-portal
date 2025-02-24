@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { GraduationCap } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { GraduationCap, Shield } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import backgroundImage from "../../src/assets/army.jpg";
 
 interface LoginForm {
   army_number: string;
@@ -13,26 +14,38 @@ export function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [error, setError] = useState('');
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
+  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>();
 
   const onSubmit = async (data: LoginForm) => {
     try {
       await login(data.army_number, data.password);
-      const from = location.state?.from?.pathname || '/';
+      const from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     } catch (err) {
-      console.log(err)
-      setError('Invalid email or password');
+      console.log(err);
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg:cover"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        // backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="max-w-md w-full space-y-8">
         <div>
-          <div className="mx-auto h-12 w-12 text-indigo-600">
-            <GraduationCap className="h-12 w-12" />
+          <div className="mx-auto h-12 w-12 text-olive-600">
+            <Shield className="h-12 w-12" />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -45,13 +58,15 @@ export function Login() {
                 Army Number
               </label>
               <input
-                {...register('army_number', { required: true })}
+                {...register("army_number", { required: true })}
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-600 focus:border-green-600 focus:z-10 sm:text-sm"
                 placeholder="Army Number"
               />
               {errors.army_number && (
-                <p className="mt-1 text-sm text-red-600">Army number is required</p>
+                <p className="mt-1 text-sm text-red-600">
+                  Army number is required
+                </p>
               )}
             </div>
             <div>
@@ -59,13 +74,15 @@ export function Login() {
                 Password
               </label>
               <input
-                {...register('password', { required: true })}
+                {...register("password", { required: true })}
                 type="password"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-600 focus:border-green-600 focus:z-10 sm:text-sm"
                 placeholder="Password"
               />
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">Password is required</p>
+                <p className="mt-1 text-sm text-red-600">
+                  Password is required
+                </p>
               )}
             </div>
           </div>
@@ -77,7 +94,7 @@ export function Login() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-olive-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-olive-500"
             >
               Sign in
             </button>

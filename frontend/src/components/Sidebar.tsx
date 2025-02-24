@@ -61,7 +61,7 @@ export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
                 to={item.href}
                 className={cn(
                   item.current
-                    ? 'bg-indigo-50 text-indigo-600'
+                    ? 'bg-green-50 text-green-800'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                   'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                 )}
@@ -69,7 +69,7 @@ export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
                 <item.icon
                   className={cn(
                     item.current
-                      ? 'text-indigo-600'
+                      ? 'text-green-800'
                       : 'text-gray-400 group-hover:text-gray-500',
                     'mr-3 h-5 w-5'
                   )}

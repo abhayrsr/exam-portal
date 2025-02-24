@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../lib/axios';
 import type { Exam } from '../types';
 import { Clock } from 'lucide-react';
+import backgroundImage from "../../src/assets/flag.jpg";
 
 export function ExamList() {
   const { data: exams, isLoading } = useQuery({
@@ -22,6 +23,14 @@ export function ExamList() {
   }
 
   return (
+    <div
+      className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}>
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-extrabold text-gray-900">Available Exams</h1>
@@ -38,7 +47,7 @@ export function ExamList() {
                 <div className="px-4 py-4 sm:px-6">
                   <div className="flex items-center justify-between">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-indigo-600 truncate">
+                      <p className="text-sm font-medium text-green-600 truncate">
                         {exam.exam_name}
                       </p>
                       <p className="mt-2 text-sm text-gray-500">
@@ -62,6 +71,7 @@ export function ExamList() {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   );
 }
