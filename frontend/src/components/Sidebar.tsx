@@ -5,6 +5,7 @@ import {
   BookOpen,
   PlusCircle,
   Pencil,
+  UserPlus,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -25,15 +26,14 @@ export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
     },
   ];
 
-  if(user?.role !== 'Admin') {
+  if (user?.role !== 'Admin') {
     navigation.push({
       name: 'Exams',
       href: '/exams',
       icon: BookOpen,
       current: location.pathname === '/exams',
-    }
-  )
-}
+    });
+  }
 
   if (user?.role === 'Admin') {
     navigation.push({
@@ -47,6 +47,12 @@ export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
       href: '/exams/edit',
       icon: Pencil,
       current: location.pathname === '/exams/edit',
+    });
+    navigation.push({
+      name: 'Add User',
+      href: '/admin/user/add',
+      icon: UserPlus,
+      current: location.pathname === '/admin/user/add',
     });
   }
 
