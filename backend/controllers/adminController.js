@@ -216,30 +216,3 @@ const addUser = async (req, res) => {
 }
 
 module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, addUser, getAllStudents };
-const getResultsByCrsId = async(req, res) => {
-  const crsId = req.params.crsId;
-  try{
-    const results = await Result.findAll({
-      where: { course_id: crsId },
-      include:[
-        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled']
-        },
-        {
-          model: Exam, attributes: ['exam_name']
-        }
-      ]
-    })
-
-    if(results.length === 0){
-      return res.status(404).json({message: 'No results found'});
-    }
-
-    res.status(200).json(results);
-  } catch(e){
-    console.error('Error fetching user results:', e);
-    res.status(500).json({error: 'Internal Server Error'});
-  }
-}
-
-
-module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, getResultsByCrsId };
