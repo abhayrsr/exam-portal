@@ -15,6 +15,7 @@ import { NotFound } from "./pages/NotFound";
 import { ResultPage } from "./pages/ResultPage";
 import { ResultsDownloadPage } from "./pages/ResultsDownloadPage";
 import { AddUser } from "./pages/AddUser";
+import { TrgParadeState } from "./pages/TrgParadeState";
 import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
@@ -64,6 +65,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['Admin']}>
                     <AddUser />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="admin/trg-parade-state"
+                element={
+                  <ProtectedRoute allowedRoles={['Admin']}>
+                    <TrgParadeState />
                   </ProtectedRoute>
                 }
               />

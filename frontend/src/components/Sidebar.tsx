@@ -6,6 +6,7 @@ import {
   PlusCircle,
   Pencil,
   UserPlus,
+  List,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -53,6 +54,12 @@ export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
       href: '/admin/user/add',
       icon: UserPlus,
       current: location.pathname === '/admin/user/add',
+    });
+    navigation.push({
+      name: 'TRG Parade State',
+      href: '/admin/trg-parade-state',
+      icon: List,
+      current: location.pathname === '/admin/trg-parade-state',
     });
   }
 
