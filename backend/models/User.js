@@ -25,7 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: "Student",
     },
+    coy: {
+      type: DataTypes.STRING(50),
+    },
     password: {
+      type: DataTypes.STRING(255),
+    },
+    remarks: {
       type: DataTypes.STRING(255),
     }
   },

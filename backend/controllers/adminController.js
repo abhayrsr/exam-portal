@@ -155,7 +155,7 @@ const getAllResults = async (req, res) => {
   try{
     const results = await Result.findAll({
       include:[
-        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled']
+        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled', 'coy']
         },
         {
           model: Exam, attributes: ['exam_name']
@@ -174,5 +174,27 @@ const getAllResults = async (req, res) => {
   }
 }
 
+const addUser = async (req, res) => {
+  try{
+    const {username, password, army_number, userrank, role, course_enrolled, coy} = req.body;
 
-module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults };
+    if(!username || !password || !army_number || !userrank || !role || !course_enrolled || !coy){
+      return res.status(400).json({error: 'All fields are required'});
+    }
+
+    // check if same army number already exists for any user
+    const existing = await User.findOne({where: {army_number}});
+    if(existing){
+      return res.status(400).json({error: 'User already exists with this army number'});
+    }
+
+    const user = await User.create({username, password, army_number, userrank, role, course_enrolled, coy});
+
+    res.status(201).json({message: 'User added successfully', user});
+  } catch(e){
+    console.error('Error adding user:', e);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+}
+
+module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, addUser };
