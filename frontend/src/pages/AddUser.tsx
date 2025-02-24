@@ -58,13 +58,13 @@ export function AddUser() {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="username"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Username
+                  Name
                 </label>
                 <input
                   type="text"
@@ -72,58 +72,7 @@ export function AddUser() {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
                 />
                 {errors.username && (
-                  <p className="mt-1 text-sm text-red-600">Username is required</p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  {...register('password', { required: true })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
-                />
-                {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">Password is required</p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="army_number"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Army Number
-                </label>
-                <input
-                  type="text"
-                  {...register('army_number', { required: true })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
-                />
-                {errors.army_number && (
-                  <p className="mt-1 text-sm text-red-600">Army Number is required</p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="userrank"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Rank
-                </label>
-                <input
-                  type="text"
-                  {...register('userrank', { required: true })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
-                />
-                {errors.userrank && (
-                  <p className="mt-1 text-sm text-red-600">Rank is required</p>
+                  <p className="mt-1 text-sm text-red-600">Name is required</p>
                 )}
               </div>
 
@@ -143,6 +92,61 @@ export function AddUser() {
                 </select>
                 {errors.role && (
                   <p className="mt-1 text-sm text-red-600">Role is required</p>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="army_number"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Army Number
+                </label>
+                <input
+                  type="text"
+                  {...register('army_number', { required: true })}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
+                />
+                {errors.army_number && (
+                  <p className="mt-1 text-sm text-red-600">Army Number is required</p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  {...register('password', { required: true })}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
+                />
+                {errors.password && (
+                  <p className="mt-1 text-sm text-red-600">Password is required</p>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div>
+                <label
+                  htmlFor="userrank"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Rank
+                </label>
+                <input
+                  type="text"
+                  {...register('userrank', { required: true })}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
+                />
+                {errors.userrank && (
+                  <p className="mt-1 text-sm text-red-600">Rank is required</p>
                 )}
               </div>
 
@@ -168,7 +172,7 @@ export function AddUser() {
                   htmlFor="coy"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Company
+                  COY
                 </label>
                 <input
                   type="text"
@@ -176,7 +180,7 @@ export function AddUser() {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-600 focus:ring-green-600 sm:text-sm bg-gray-100 h-8 px-3"
                 />
                 {errors.coy && (
-                  <p className="mt-1 text-sm text-red-600">Company is required</p>
+                  <p className="mt-1 text-sm text-red-600">COY is required</p>
                 )}
               </div>
             </div>
