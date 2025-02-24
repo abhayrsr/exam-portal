@@ -174,6 +174,24 @@ const getAllResults = async (req, res) => {
   }
 }
 
+const getAllStudents = async (req, res) => {
+  try{
+    const students = await User.findAll({
+      where: {role: 'Student'},
+      attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled', 'coy', 'remarks']
+    })
+
+    if(students.length === 0){
+      return res.status(404).json({message: 'No students found'});
+    }
+
+    res.status(200).json(students);
+  } catch(e){
+    console.error('Error fetching students:', e);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+}
+
 const addUser = async (req, res) => {
   try{
     const {username, password, army_number, userrank, role, course_enrolled, coy} = req.body;
@@ -197,4 +215,4 @@ const addUser = async (req, res) => {
   }
 }
 
-module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, addUser };
+module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, addUser, getAllStudents };
