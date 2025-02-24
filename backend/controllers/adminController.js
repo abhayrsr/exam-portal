@@ -155,7 +155,7 @@ const getAllResults = async (req, res) => {
   try{
     const results = await Result.findAll({
       include:[
-        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled']
+        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled', 'coy']
         },
         {
           model: Exam, attributes: ['exam_name']
@@ -174,6 +174,48 @@ const getAllResults = async (req, res) => {
   }
 }
 
+const getAllStudents = async (req, res) => {
+  try{
+    const students = await User.findAll({
+      where: {role: 'Student'},
+      attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled', 'coy', 'remarks']
+    })
+
+    if(students.length === 0){
+      return res.status(404).json({message: 'No students found'});
+    }
+
+    res.status(200).json(students);
+  } catch(e){
+    console.error('Error fetching students:', e);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+}
+
+const addUser = async (req, res) => {
+  try{
+    const {username, password, army_number, userrank, role, course_enrolled, coy} = req.body;
+
+    if(!username || !password || !army_number || !userrank || !role || !course_enrolled || !coy){
+      return res.status(400).json({error: 'All fields are required'});
+    }
+
+    // check if same army number already exists for any user
+    const existing = await User.findOne({where: {army_number}});
+    if(existing){
+      return res.status(400).json({error: 'User already exists with this army number'});
+    }
+
+    const user = await User.create({username, password, army_number, userrank, role, course_enrolled, coy});
+
+    res.status(201).json({message: 'User added successfully', user});
+  } catch(e){
+    console.error('Error adding user:', e);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+}
+
+module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults, addUser, getAllStudents };
 const getResultsByCrsId = async(req, res) => {
   const crsId = req.params.crsId;
   try{

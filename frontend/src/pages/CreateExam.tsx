@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { api } from '../lib/axios';
 import { Plus, Trash2, HelpCircle } from 'lucide-react';
+import * as XLSX from 'xlsx';
 import type { Exam, Question } from '../types';
 import backgroundImage from "../../src/assets/flag.jpg";
 
@@ -54,6 +55,31 @@ export function CreateExam() {
     };
   
     createExamMutation.mutate(examData);
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target?.result as ArrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        const newQuestions: Question[] = jsonData.slice(1).map((row: any) => ({
+          id: crypto.randomUUID(),
+          question_text: row[1],
+          question_type: row[2] && row[3] && row[4] && row[5] ? 'MCQ' : 'True/False',
+          options: [row[2], row[3], row[4], row[5]].filter(Boolean),
+          correct_answer: row[6],
+        }));
+
+        setQuestions([...questions, ...newQuestions]);
+      };
+      reader.readAsArrayBuffer(file);
+    }
   };
 
   return (
@@ -148,6 +174,12 @@ export function CreateExam() {
             </div>
 
             <div className="mt-6 space-y-6">
+              <input
+                type="file"
+                accept=".xlsx, .xls"
+                onChange={handleFileUpload}
+                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+              />
               {questions.map((question, index) => (
                 <div
                   key={question.id}
