@@ -33,8 +33,12 @@ const submitExam = async (req, res) => {
     let score = 0;
     questions.forEach((question) => {
       const userAnswer = answers.find((a) => a.question_id === question.question_id);
-      if (userAnswer && userAnswer.answer === question.correct_answer) {
-        score++;
+      if (userAnswer) {  
+        if (userAnswer.answer === question.correct_answer) {
+            score += 1;  
+        } else {
+            score -= 0.25;  
+        }
       }
     });
 

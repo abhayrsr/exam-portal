@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "exam_portal",
-    "host": "127.0.0.1",
+    "username": "freedb_devadmin",
+    "password": "Kth*pen3s9@RX8S",
+    "database": "freedb_exam_portal",
+    "host": "sql.freedb.tech",
     "dialect": "mysql"
   },
   "test": {
@@ -21,3 +21,4 @@
     "dialect": "mysql"
   }
 }
+

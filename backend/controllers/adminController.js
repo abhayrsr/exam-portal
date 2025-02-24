@@ -1,4 +1,4 @@
-const { Exam, Question } = require("../models");
+const { Exam, Question, Result, User } = require("../models");
 
 const getAllExamDetails = async (req, res) => {
   try {
@@ -21,10 +21,7 @@ const getAllExamDetails = async (req, res) => {
 const getExamDetails = async (req, res) => {
   try {
     const { exam_id } = req.params;
-    console.log(req.params);
 
-    console.log("Exam ID:", exam_id);
-    console.log("Exam ID Type:", typeof exam_id);
     if (!exam_id) {
       return res.status(400).json({ error: "Exam ID not provided" });
     }
@@ -46,16 +43,21 @@ const getExamDetails = async (req, res) => {
       ],
     });
 
-
     if (!data.length) {
       return res.status(404).json({ message: "No exam details found" });
     }
 
-    // Transform the response to change Questions to questions
-    const transformedData = data.map(exam => ({
-      ...exam.toJSON(),
-      questions: exam.Questions,
-    }));
+    // Transform the response to change Questions to questions and parse options
+    const transformedData = data.map(exam => {
+      const examJson = exam.toJSON();
+      return {
+        ...examJson,
+        questions: examJson.Questions.map(question => ({
+          ...question,
+          options: JSON.parse(question.options)
+        })),
+      };
+    });
 
     res.status(200).json({ data: transformedData });
   } catch (e) {
@@ -99,7 +101,7 @@ const updateExam = async (req, res) => {
             existingQuestion.question_text !== q.question_text ||
             existingQuestion.question_type !== q.question_type ||
             existingQuestion.correct_answer !== q.correct_answer ||
-            JSON.stringify(existingQuestion.options) !==
+            existingQuestion.options !==
               JSON.stringify(q.options);
 
           if (isContentChanged) {
@@ -109,7 +111,7 @@ const updateExam = async (req, res) => {
               exam_id,
               question_text: q.question_text,
               question_type: q.question_type,
-              options: q.options || null,
+              options: JSON.stringify(q.options) || null,
               correct_answer: q.correct_answer,
             });
             updatedQuestionIds.push(newQuestion.question_id);
@@ -123,7 +125,7 @@ const updateExam = async (req, res) => {
             exam_id,
             question_text: q.question_text,
             question_type: q.question_type,
-            options: q.options || null,
+            options: JSON.stringify(q.options) || null,
             correct_answer: q.correct_answer,
           });
           updatedQuestionIds.push(newQuestion.question_id);
@@ -149,4 +151,28 @@ const updateExam = async (req, res) => {
   }
 };
 
-module.exports = { getAllExamDetails, getExamDetails, updateExam };
+const getAllResults = async (req, res) => {
+  try{
+    const results = await Result.findAll({
+      include:[
+        {model: User, attributes: ['username', 'army_number','userrank', 'role', 'course_enrolled']
+        },
+        {
+          model: Exam, attributes: ['exam_name']
+        }
+      ]
+    })
+
+    if(results.length === 0){
+      return res.status(404).json({message: 'No results found'});
+    }
+
+    res.status(200).json(results);
+  } catch(e){
+    console.error('Error fetching user results:', e);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+}
+
+
+module.exports = { getAllExamDetails, getExamDetails, updateExam, getAllResults };

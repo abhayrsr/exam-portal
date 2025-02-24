@@ -8,9 +8,13 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-export function Sidebar() {
+export function Sidebar({ isExamInProgress }: { isExamInProgress: boolean }) {
   const location = useLocation();
   const { user } = useAuth();
+
+  if (isExamInProgress) {
+    return null;
+  }
 
   const navigation = [
     {
@@ -19,13 +23,17 @@ export function Sidebar() {
       icon: LayoutDashboard,
       current: location.pathname === '/',
     },
-    {
+  ];
+
+  if(user?.role !== 'Admin') {
+    navigation.push({
       name: 'Exams',
       href: '/exams',
       icon: BookOpen,
-      current: '/exams',
-    },
-  ];
+      current: location.pathname === '/exams',
+    }
+  )
+}
 
   if (user?.role === 'Admin') {
     navigation.push({
@@ -35,7 +43,7 @@ export function Sidebar() {
       current: location.pathname === '/exams/create',
     });
     navigation.push({
-      name: 'Edit Exam',
+      name: 'Manage Exams',
       href: '/exams/edit',
       icon: Pencil,
       current: location.pathname === '/exams/edit',
@@ -43,7 +51,7 @@ export function Sidebar() {
   }
 
   return (
-    <div className="hidden md:flex md:w-64 md:flex-col">
+    <div className="hidden md:flex md:w-64 md:flex-col h-screen">
       <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto">
         <div className="flex-grow flex flex-col">
           <nav className="flex-1 px-2 pb-4 space-y-1">
@@ -53,7 +61,7 @@ export function Sidebar() {
                 to={item.href}
                 className={cn(
                   item.current
-                    ? 'bg-indigo-50 text-indigo-600'
+                    ? 'bg-green-50 text-green-800'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                   'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                 )}
@@ -61,7 +69,7 @@ export function Sidebar() {
                 <item.icon
                   className={cn(
                     item.current
-                      ? 'text-indigo-600'
+                      ? 'text-green-800'
                       : 'text-gray-400 group-hover:text-gray-500',
                     'mr-3 h-5 w-5'
                   )}

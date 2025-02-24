@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    name: {
+    username: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    rank: {
+    userrank: {
       type: DataTypes.STRING(50),
     },
     course_enrolled: {
@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING(255),
     }
+  },
+  {
+    timestamps: false 
   });
 
   User.associate = (models) => {

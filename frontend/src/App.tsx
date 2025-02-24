@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useOutletContext } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -13,6 +13,8 @@ import { TakeExamPage } from "./pages/TakeExamPage";
 import { CreateExam } from "./pages/CreateExam";
 import { NotFound } from "./pages/NotFound";
 import {ResultPage} from "./pages/ResultPage";
+import {ResultsDownloadPage} from "./pages/ResultsDownloadPage";
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -34,10 +36,10 @@ function App() {
               <Route index element={<Dashboard />} />
 
               <Route path="/exams" element={<ExamList />} />
-              {/* <Route path="/admin/exams" element={<ExamList />} /> */}
               <Route path="/exams/:exam_id" element={<ExamDetailsPage />} />
-              <Route path="/exams/take/:exam_id" element={<TakeExamPage />} />
+              <Route path="/exams/take/:exam_id" element={<TakeExamPageWrapper />} />
               <Route path="/exams/results/:exam_id" element={<ResultPage />} />
+              <Route path="/results/download" element={<ResultsDownloadPage />} />
 
 
               <Route path="exams/:id" element={<ExamDetails />} />
@@ -64,6 +66,17 @@ function App() {
       </AuthProvider>
     </QueryClientProvider>
   );
+}
+
+function TakeExamPageWrapper() {
+  const { setIsExamInProgress } = useOutletContext<{ setIsExamInProgress: (value: boolean) => void }>();
+
+  useEffect(() => {
+    setIsExamInProgress(true);
+    return () => setIsExamInProgress(false);
+  }, [setIsExamInProgress]);
+
+  return <TakeExamPage />;
 }
 
 export default App;
